@@ -1,4 +1,4 @@
-/* 3-2. テキストの入力 */
+/* 3-3. スイッチ */
 
 import 'package:flutter/material.dart';
 
@@ -27,11 +27,11 @@ class MyForm extends StatefulWidget {
 }
 
 class _MyFormState extends State<MyForm> {
-  String _text = '';
+  bool _active = false;
 
-  void _handleText(String e) {
+  void _changeSwitch(bool e) {
     setState(() {  // 状態を保持する変数を変更する処理は、setState内に記述する
-      _text = e;
+      _active = e;
     });
   }
 
@@ -40,17 +40,17 @@ class _MyFormState extends State<MyForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "$_text",
-              style: TextStyle(
-                color:Colors.blueAccent,
-                fontSize: 30.0,
+            Center(
+              child: Icon(
+                Icons.thumb_up,
+                color: _active ? Colors.orange : Colors.grey,
+                size: 100.0,
               ),
             ),
-            TextField(  // テキストを表示
-              style: TextStyle(color: Colors.red),
-              onChanged: _handleText,
-            ),
+            Switch(  // スイッチ
+              value: _active,
+              onChanged: _changeSwitch,
+            )
           ],
         )
     );
