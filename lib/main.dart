@@ -14,7 +14,7 @@ class RandomWordsState extends State<RandomWords> {
     return ListView.builder(
       itemBuilder: (context, i) { // itemBuilderで一行ごとに処理が呼ばれる
         if (i.isOdd) return Divider();  // 奇数行には水平線を表示
-
+        print("読み込まれました");
         final index = i ~/ 2;  // ~/は結果が整数の割り算
         if (index >= _wordPairs.length) {  // 行数がリストの要素数を越えれば
           _wordPairs.addAll(generateWordPairs().take(10));  // 単語のペアを10個追加
