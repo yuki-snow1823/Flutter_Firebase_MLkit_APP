@@ -1,4 +1,4 @@
-/* 2-2. RowとColumn */
+/* 2-3. Expanded */
 
 import 'package:flutter/material.dart';
 
@@ -10,24 +10,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "My Simple App",
       home: Container(
-        child: Row(  // 行
-          mainAxisAlignment: MainAxisAlignment.start,  // 中央に配置（他にstart、end、spaceAroundなど）
+        child: Row(
           children: <Widget>[
-            Column(  // 列
-              mainAxisAlignment: MainAxisAlignment.center,  // 中央に配置
-              children: <Widget>[
-                Container( color: Colors.blue, width: 100, height:100 ),
-                Container( color: Colors.red, width: 100, height:100 ),
-                Container( color: Colors.yellow, width: 100, height:100 ),
-              ],
+            Expanded(  // 引き延ばして表示
+              flex: 1,
+                child:Container( color: Colors.red)
             ),
-            Column(  // 列
-              mainAxisAlignment: MainAxisAlignment.center,  // 中央に配置
-              children: <Widget>[
-                Container( color: Colors.green, width: 100, height:100 ),
-                Container( color: Colors.orange, width: 100, height:100 ),
-                Container( color: Colors.white, width: 100, height:100 ),
-              ],
+            Expanded(
+              flex: 2,
+              child:Container( color: Colors.green),
+            ),
+            Expanded(
+              child:Container( color: Colors.blue),
+              flex: 3,
             ),
           ],
         ),
