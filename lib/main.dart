@@ -17,6 +17,7 @@ class RandomWordsState extends State<RandomWords> {
 // StatefulなWidgetのクラスは、StatefulWidgetを継承
 class RandomWords extends StatefulWidget {
   @override
+  // 一緒に使う
   RandomWordsState createState() => RandomWordsState();
 }
 
