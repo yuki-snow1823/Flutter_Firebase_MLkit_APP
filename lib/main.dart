@@ -1,4 +1,4 @@
-/* 2-1. Container */
+/* 2-2. RowとColumn */
 
 import 'package:flutter/material.dart';
 
@@ -9,15 +9,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "My Simple App",
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            color: Colors.blue,
-            width: 300.0,
-            height: 300.0,
-            child: Text("Live!人工知能"),
-            alignment: Alignment.center,
-          ),
+      home: Container(
+        child: Row(  // 行
+          mainAxisAlignment: MainAxisAlignment.center,  // 中央に配置（他にstart、end、spaceAroundなど）
+          children: <Widget>[
+            Column(  // 列
+              mainAxisAlignment: MainAxisAlignment.center,  // 中央に配置
+              children: <Widget>[
+                Container( color: Colors.blue, width: 100, height:100 ),
+                Container( color: Colors.red, width: 100, height:100 ),
+                Container( color: Colors.yellow, width: 100, height:100 ),
+              ],
+            ),
+            Column(  // 列
+              mainAxisAlignment: MainAxisAlignment.center,  // 中央に配置
+              children: <Widget>[
+                Container( color: Colors.green, width: 100, height:100 ),
+                Container( color: Colors.orange, width: 100, height:100 ),
+                Container( color: Colors.white, width: 100, height:100 ),
+              ],
+            ),
+          ],
         ),
       ),
     );
