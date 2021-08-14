@@ -1,4 +1,4 @@
-/* 3-1. ボタン */
+/* 3-2. テキストの入力 */
 
 import 'package:flutter/material.dart';
 
@@ -27,11 +27,11 @@ class MyForm extends StatefulWidget {
 }
 
 class _MyFormState extends State<MyForm> {
-  int _count = 0;
+  String _text = '';
 
-  void _handlePressed() {
+  void _handleText(String e) {
     setState(() {  // 状態を保持する変数を変更する処理は、setState内に記述する
-      _count++;
+      _text = e;
     });
   }
 
@@ -41,23 +41,16 @@ class _MyFormState extends State<MyForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "$_count",
+              "$_text",
               style: TextStyle(
                 color:Colors.blueAccent,
                 fontSize: 30.0,
               ),
             ),
-            FlatButton(  // 一番シンプルなボタン
-              onPressed: _handlePressed,
-              color: Colors.blue,
-              child: Text(
-                "いいね!",
-                style: TextStyle(
-                    color:Colors.white,
-                    fontSize: 20.0
-                ),
-              ),
-            )
+            TextField(  // テキストを表示
+              style: TextStyle(color: Colors.red),
+              onChanged: _handleText,
+            ),
           ],
         )
     );
