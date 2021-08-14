@@ -1,4 +1,4 @@
-/* 3-4. スライダー */
+/* 演習3の解答例 */
 
 import 'package:flutter/material.dart';
 
@@ -27,11 +27,17 @@ class MyForm extends StatefulWidget {
 }
 
 class _MyFormState extends State<MyForm> {
-  double _value = 0.0;
+  int _count = 0;
 
-  void _changeSlider(double e) {
+  void _goodPressed() {
     setState(() {  // 状態を保持する変数を変更する処理は、setState内に記述する
-      _value = e;
+      _count++;
+    });
+  }
+
+  void _badPressed() {
+    setState(() {  // 状態を保持する変数を変更する処理は、setState内に記述する
+      _count--;
     });
   }
 
@@ -40,16 +46,34 @@ class _MyFormState extends State<MyForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Center(child:Text("値：${_value}")),
-            Slider(  // スライダー
-              label: '${_value}',
-              min: 0,
-              max: 10,
-              value: _value,
-              activeColor: Colors.orange,
-              inactiveColor: Colors.blueAccent,
-              divisions: 10,
-              onChanged: _changeSlider,
+            Text(
+              "$_count",
+              style: TextStyle(
+                color:Colors.blueAccent,
+                fontSize: 30.0,
+              ),
+            ),
+            FlatButton(  // 一番シンプルなボタン
+              onPressed: _goodPressed,
+              color: Colors.blue,
+              child: Text(
+                "いいね!",
+                style: TextStyle(
+                    color:Colors.white,
+                    fontSize: 20.0
+                ),
+              ),
+            ),
+            FlatButton(  // 一番シンプルなボタン
+              onPressed: _badPressed,
+              color: Colors.red,
+              child: Text(
+                "やだね!",
+                style: TextStyle(
+                    color:Colors.white,
+                    fontSize: 20.0
+                ),
+              ),
             )
           ],
         )
