@@ -1,4 +1,4 @@
-/* 演習3の解答例 */
+/* 4-1. 画面遷移 */
 
 import 'package:flutter/material.dart';
 
@@ -8,75 +8,61 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "My Simple App",
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Live!人工知能"),
-        ),
-        body: Center(
-          child: MyForm(),
+      home: MainPage(),
+      routes: <String, WidgetBuilder> {
+        '/home': (BuildContext context) => MainPage(),  // 最初のページ
+        '/subpage': (BuildContext context) => SubPage()  // 次のページ
+      },
+    );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Mainページ"),
+      ),
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Main"),
+              RaisedButton( // 立体的なボタン
+                onPressed: () => Navigator.of(context).pushNamed("/subpage"),  // 次の画面を乗せる
+                child: Text("Subページへ"),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class MyForm extends StatefulWidget {
+class SubPage extends StatelessWidget {
   @override
-  _MyFormState createState() => _MyFormState();
-}
-
-class _MyFormState extends State<MyForm> {
-  int _count = 0;
-
-  void _goodPressed() {
-    setState(() {  // 状態を保持する変数を変更する処理は、setState内に記述する
-      _count++;
-    });
-  }
-
-  void _badPressed() {
-    setState(() {  // 状態を保持する変数を変更する処理は、setState内に記述する
-      _count--;
-    });
-  }
-
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "$_count",
-              style: TextStyle(
-                color:Colors.blueAccent,
-                fontSize: 30.0,
-              ),
-            ),
-            FlatButton(  // 一番シンプルなボタン
-              onPressed: _goodPressed,
-              color: Colors.blue,
-              child: Text(
-                "いいね!",
-                style: TextStyle(
-                    color:Colors.white,
-                    fontSize: 20.0
-                ),
-              ),
-            ),
-            FlatButton(  // 一番シンプルなボタン
-              onPressed: _badPressed,
-              color: Colors.red,
-              child: Text(
-                "やだね!",
-                style: TextStyle(
-                    color:Colors.white,
-                    fontSize: 20.0
-                ),
-              ),
-            )
-          ],
-        )
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Subページ"),
+      ),
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Sub"),
+              RaisedButton(
+                onPressed: () => Navigator.of(context).pop(),  // この画面を取り除く
+                child: Text("戻る"),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
