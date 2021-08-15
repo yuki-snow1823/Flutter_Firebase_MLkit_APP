@@ -1,14 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-final dummyData = [
-  {"name": "Pochi", "votes": 0},
-  {"name": "Taro", "votes": 0},
-  {"name": "Jiro", "votes": 0},
-  {"name": "Shiro", "votes": 0},
-  {"name": "Hachi", "votes": 0},
-];
-
-void main() {
+void main()  async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -39,20 +35,28 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildBody() {
-    return _buildList(dummyData);
+    return StreamBuilder<QuerySnapshot>(  // Streamを監視して、イベントが通知される度にWidgetを更新する
+      stream: FirebaseFirestore.instance.collection("dogs").snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+        return _buildList(snapshot.data.docs);
+      },
+    );
   }
 
-  Widget _buildList(List<Map<String, dynamic>> dataList) {
+  Widget _buildList(List<DocumentSnapshot> snapList) {
     return ListView.builder(
         padding: const EdgeInsets.all(18.0),
-        itemCount: dataList.length,
+        itemCount: snapList.length,
         itemBuilder: (context, i) {
-          return _buildListItem(dataList[i]);
+          return _buildListItem(snapList[i]);
         }
     );
   }
 
-  Widget _buildListItem(Map<String, dynamic> data) {
+  Widget _buildListItem(DocumentSnapshot snap) {
+    Map<String, dynamic> data = snap.data();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical:9.0),
       child: Container(
@@ -63,9 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListTile(
           title: Text(data["name"]),
           trailing: Text(data["votes"].toString()),
-          onTap: () {
-            setState(() { data["votes"] += 1; });
-            },
+          onTap: () => snap.reference.update({"votes": FieldValue.increment(1)}),
         ),
       ),
     );
