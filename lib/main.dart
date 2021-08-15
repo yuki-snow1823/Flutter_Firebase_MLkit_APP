@@ -1,4 +1,4 @@
-/* 4-2. TabBar */
+/* 4-3. Drawer */
 
 import 'package:flutter/material.dart';
 
@@ -20,51 +20,34 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
-  final _tab = <Tab> [  // タブバーの表示
-    Tab( text:"Railway", icon: Icon(Icons.directions_railway)),
-    Tab( text:"Subway", icon: Icon(Icons.directions_subway)),
-    Tab( text:"Walk", icon: Icon(Icons.directions_walk)),
-  ];
-
   Widget build(BuildContext context) {
-    return DefaultTabController(  // タブを制御
-      length: _tab.length,  // タブの数
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Live!人工知能"),
-          bottom: TabBar(  // タブバー
-            tabs: _tab,
-          ),
-        ),
-        body: TabBarView(  // 表示画面のウィジェット一覧を渡す
-            children: <Widget> [
-              TabPage(title: "Railway", icon: Icons.directions_railway),
-              TabPage(title: "Subway", icon: Icons.directions_subway),
-              TabPage(title: "Walk", icon: Icons.directions_walk),
-            ]
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Live!人工知能"),
       ),
-    );
-  }
-}
-
-class TabPage extends StatelessWidget {
-
-  final IconData icon;
-  final String title;
-
-  const TabPage({Key key, this.icon, this.title}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final TextStyle textStyle = Theme.of(context).textTheme.headline4;  // 文字のスタイル
-    return Center(
-      child:Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(icon, size: 72.0, color: textStyle.color),
-          Text(title, style: textStyle),
-        ],
+      drawer: Drawer( // Drawerの配置
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child: Text("ヘッダーです。"),
+              decoration: BoxDecoration(  // Boxによる装飾
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: Text("アイテムその1"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+            ListTile(
+              title: Text("アイテムその2"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+            ListTile(
+              title: Text("アイテムその3"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+          ],
+        ),
       ),
     );
   }
